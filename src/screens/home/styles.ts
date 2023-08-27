@@ -24,6 +24,7 @@ export const styles = StyleSheet.create({
     color: '#fff',
     padding: 16,
     fontSize: 16,
+    flex: 1,
   },
   buttonText: {
     color: '#fff',
@@ -39,4 +40,16 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     lineHeight: 0,
   },
+  form: {
+    width: '100%',
+    flexDirection: 'row',
+    gap: 12,
+    marginTop: 36,
+    marginBottom: 42,
+  },
+  listEmptyText: {
+    color: '#fff',
+    fontSize: 14,
+    textAlign: 'center',
+  }
 });
