@@ -16,7 +16,11 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style='inverted'/>
+      <StatusBar 
+        style='inverted'
+        backgroundColor='transparent'
+        translucent
+      />
 
       <Text style={styles.titulo}>Nome do evento</Text>
       <Text style={styles.texto}>Sexta, 26 de agosto de 2023</Text>
