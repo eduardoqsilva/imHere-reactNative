@@ -1,6 +1,6 @@
 import { styles } from './styles';
 import { StatusBar } from 'expo-status-bar';
-import { View, Text, TextInput, TouchableOpacity, FlatList} from "react-native";
+import { View, Text, TextInput, TouchableOpacity, FlatList, Alert} from "react-native";
 import { Participant } from '../../components/Participant';
 
 export default function Home() {
@@ -8,9 +8,22 @@ export default function Home() {
   const participants: string[] = ['Eduardo Queiroz', "Fulano de tal", 'Beltrano de tal', 'Ciclano de tal', 'Cipriano de tal']
 
   function handlePaticipantAdd() {
+    if(participants.includes("Fulano de tal")){
+      return Alert.alert("Participante já existe", "Já existe um participante com este nome na lista!");
+    }
+
     console.log("Adicionou!")
   }
-  function handleParticipantRemove() {
+  function handleParticipantRemove(name: string) {
+    Alert.alert(
+      "Remover participante?",
+      `Deseja remover o participante ${name} da lista?`,
+      [
+        {text: 'Sim', onPress: () => Alert.alert("Deletado!")},
+        {text: 'Não', style: 'cancel'}
+      ]
+    )
+
     console.log("removeu!")
   }
 
@@ -38,7 +51,7 @@ export default function Home() {
         data={participants}
         keyExtractor={item => item}
         renderItem={({item}) => (
-          <Participant key={item} name={item} onRemove={handleParticipantRemove}/>
+          <Participant key={item} name={item} onRemove={() => handleParticipantRemove(item)}/>
         )}
         showsVerticalScrollIndicator={false}
         ListEmptyComponent={() => (
