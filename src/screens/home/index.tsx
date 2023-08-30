@@ -1,17 +1,24 @@
 import { styles } from './styles';
-import { StatusBar } from 'expo-status-bar';
 import { View, Text, TextInput, TouchableOpacity, FlatList, Alert} from "react-native";
 import { Participant } from '../../components/Participant';
+import { useState } from 'react';
 
 export default function Home() {
 
-  const participants: string[] = ['Eduardo Queiroz', "Fulano de tal", 'Beltrano de tal', 'Ciclano de tal', 'Cipriano de tal']
+  const [participants, setParticipants] = useState<string[]>([])
+  const [partivipantName, setParticipantName] = useState<string>('')
+
+  // const participants: string[] = ['Eduardo Queiroz', "Fulano de tal", 'Beltrano de tal', 'Ciclano de tal', 'Cipriano de tal']
 
   function handlePaticipantAdd() {
-    if(participants.includes("Fulano de tal")){
-      return Alert.alert("Participante já existe", "Já existe um participante com este nome na lista!");
+    if(participants.includes(partivipantName)){
+      return Alert.alert("Participante já existe", `O participante ${partivipantName} já está na lista!`);
     }
-
+    setParticipants((prev) => [
+      ...prev,
+      partivipantName
+    ])
+    setParticipantName('')
     console.log("Adicionou!")
   }
   function handleParticipantRemove(name: string) {
@@ -29,19 +36,15 @@ export default function Home() {
 
   return (
     <View style={styles.container}>
-      <StatusBar 
-        style='inverted'
-        backgroundColor='transparent'
-        translucent
-      />
-
       <Text style={styles.titulo}>Nome do evento</Text>
       <Text style={styles.texto}>Sexta, 26 de agosto de 2023</Text>
       <View style={styles.form}>
         <TextInput
           style={styles.input}
-          placeholder='Nome do participandte'
+          placeholder='Nome do participante'
           placeholderTextColor={'#6b6b6b'}
+          onChangeText={(e) => setParticipantName(e)}
+          value={partivipantName}
         />
         <TouchableOpacity style={styles.button} onPress={handlePaticipantAdd}>
           <Text style={styles.buttonText}>+</Text>
